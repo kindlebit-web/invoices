@@ -8,14 +8,11 @@
       <div class="col-6 col-sm-4 col-lg-2">
         <div class="card">
           <div class="card-body p-3 text-center">
-            <div class="text-right text-green">
-              6% <i class="fe fe-chevron-up"></i>
-            </div>
             <div class="h1 m-0">
-              43
+              {{$totalCustomers}}
             </div>
             <div class="text-muted mb-4">
-              New Tickets
+             Customers
             </div>
           </div>
         </div>
@@ -23,14 +20,11 @@
       <div class="col-6 col-sm-4 col-lg-2">
         <div class="card">
           <div class="card-body p-3 text-center">
-            <div class="text-right text-red">
-              -3% <i class="fe fe-chevron-down"></i>
-            </div>
             <div class="h1 m-0">
-              17
+              {{$todayCustomers}}
             </div>
             <div class="text-muted mb-4">
-              Closed Today
+              Customers Today
             </div>
           </div>
         </div>
@@ -38,14 +32,11 @@
       <div class="col-6 col-sm-4 col-lg-2">
         <div class="card">
           <div class="card-body p-3 text-center">
-            <div class="text-right text-green">
-              9% <i class="fe fe-chevron-up"></i>
-            </div>
             <div class="h1 m-0">
-              7
+              {{$totalInvoices}}
             </div>
             <div class="text-muted mb-4">
-              New Replies
+              Invoices
             </div>
           </div>
         </div>
@@ -53,14 +44,11 @@
       <div class="col-6 col-sm-4 col-lg-2">
         <div class="card">
           <div class="card-body p-3 text-center">
-            <div class="text-right text-green">
-              3% <i class="fe fe-chevron-up"></i>
-            </div>
             <div class="h1 m-0">
-              27.3K
+              {{$todayInvoices}}
             </div>
             <div class="text-muted mb-4">
-              Followers
+               Invoices Today
             </div>
           </div>
         </div>
@@ -68,14 +56,11 @@
       <div class="col-6 col-sm-4 col-lg-2">
         <div class="card">
           <div class="card-body p-3 text-center">
-            <div class="text-right text-red">
-              -2% <i class="fe fe-chevron-down"></i>
-            </div>
             <div class="h1 m-0">
-              $95
+              {{$pendingInvoices}}
             </div>
             <div class="text-muted mb-4">
-              Daily Earnings
+              Pending Invoices
             </div>
           </div>
         </div>
@@ -83,14 +68,11 @@
       <div class="col-6 col-sm-4 col-lg-2">
         <div class="card">
           <div class="card-body p-3 text-center">
-            <div class="text-right text-red">
-              -1% <i class="fe fe-chevron-down"></i>
-            </div>
             <div class="h1 m-0">
-              621
+              {{$paidInvoices}}
             </div>
             <div class="text-muted mb-4">
-              Products
+              Paid Invoices
             </div>
           </div>
         </div>
@@ -98,64 +80,32 @@
       <div class="col-lg-6">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Development Activity</h3>
+            <h3 class="card-title">Customers</h3>
           </div>          
           <div class="table-responsive">
             <table class="table card-table table-striped table-vcenter">
               <thead>
                 <tr>
-                  <th colspan="2">User</th>
-                  <th>Commit</th>
-                  <th>Date</th>
+                  <th>Customer ID.</th>
+                  <th>Name</th>
+                  <th>Email</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="w-1"><span class="avatar" style="background-image: url(./demo/faces/male/9.jpg)"></span></td>
-                  <td>Ronald Bradley</td>
-                  <td>Initial commit</td>
-                  <td class="text-nowrap">May 6, 2018</td>
-                  <td class="w-1">
-                    <a class="icon" href="#"><i class="fe fe-trash"></i></a>
-                  </td>
-                </tr>
-                <tr>
-                  <td><span class="avatar">BM</span></td>
-                  <td>Russell Gibson</td>
-                  <td>Main structure</td>
-                  <td class="text-nowrap">April 22, 2018</td>
-                  <td>
-                    <a class="icon" href="#"><i class="fe fe-trash"></i></a>
-                  </td>
-                </tr>
-                <tr>
-                  <td><span class="avatar" style="background-image: url(./demo/faces/female/1.jpg)"></span></td>
-                  <td>Beverly Armstrong</td>
-                  <td>Left sidebar adjustments</td>
-                  <td class="text-nowrap">April 15, 2018</td>
-                  <td>
-                    <a class="icon" href="#"><i class="fe fe-trash"></i></a>
-                  </td>
-                </tr>
-                <tr>
-                  <td><span class="avatar" style="background-image: url(./demo/faces/male/4.jpg)"></span></td>
-                  <td>Bobby Knight</td>
-                  <td>Topbar dropdown style</td>
-                  <td class="text-nowrap">April 8, 2018</td>
-                  <td>
-                    <a class="icon" href="#"><i class="fe fe-trash"></i></a>
-                  </td>
-                </tr>
-                <tr>
-                  <td><span class="avatar" style="background-image: url(./demo/faces/female/11.jpg)"></span></td>
-                  <td>Sharon Wells</td>
-                  <td>Fixes #625</td>
-                  <td class="text-nowrap">April 9, 2018</td>
-                  <td>
-                    <a class="icon" href="#"><i class="fe fe-trash"></i></a>
-                  </td>
-                </tr>
+                @forelse ($customers as $key => $customer)
+                  @php if($key > 4) break; @endphp
+                  <tr>
+                    <td><span class="text-muted">{{ (trim($customer->customer_id) != '') ? $customer->customer_id : $customer->id }}</span></td>
+                    <td>{{ $customer->customer_name }}</td>
+                    <td>{{ $customer->customer_email }}</td>
+                    <td></td>
+                  </tr>
+              @empty
+                  <tr>
+                    <td>No Customers found.</td>
+                  </tr>
+              @endforelse
               </tbody>
             </table>
           </div>
@@ -164,64 +114,32 @@
       <div class="col-lg-6">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Development Activity</h3>
+            <h3 class="card-title">Invoices</h3>
           </div>          
           <div class="table-responsive">
             <table class="table card-table table-striped table-vcenter">
               <thead>
                 <tr>
-                  <th colspan="2">User</th>
-                  <th>Commit</th>
-                  <th>Date</th>
-                  <th></th>
+                  <th>No.</th>
+                  <th>Customer</th>
+                  <th>Subtotal</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="w-1"><span class="avatar" style="background-image: url(./demo/faces/male/9.jpg)"></span></td>
-                  <td>Ronald Bradley</td>
-                  <td>Initial commit</td>
-                  <td class="text-nowrap">May 6, 2018</td>
-                  <td class="w-1">
-                    <a class="icon" href="#"><i class="fe fe-trash"></i></a>
-                  </td>
-                </tr>
-                <tr>
-                  <td><span class="avatar">BM</span></td>
-                  <td>Russell Gibson</td>
-                  <td>Main structure</td>
-                  <td class="text-nowrap">April 22, 2018</td>
-                  <td>
-                    <a class="icon" href="#"><i class="fe fe-trash"></i></a>
-                  </td>
-                </tr>
-                <tr>
-                  <td><span class="avatar" style="background-image: url(./demo/faces/female/1.jpg)"></span></td>
-                  <td>Beverly Armstrong</td>
-                  <td>Left sidebar adjustments</td>
-                  <td class="text-nowrap">April 15, 2018</td>
-                  <td>
-                    <a class="icon" href="#"><i class="fe fe-trash"></i></a>
-                  </td>
-                </tr>
-                <tr>
-                  <td><span class="avatar" style="background-image: url(./demo/faces/male/4.jpg)"></span></td>
-                  <td>Bobby Knight</td>
-                  <td>Topbar dropdown style</td>
-                  <td class="text-nowrap">April 8, 2018</td>
-                  <td>
-                    <a class="icon" href="#"><i class="fe fe-trash"></i></a>
-                  </td>
-                </tr>
-                <tr>
-                  <td><span class="avatar" style="background-image: url(./demo/faces/female/11.jpg)"></span></td>
-                  <td>Sharon Wells</td>
-                  <td>Fixes #625</td>
-                  <td class="text-nowrap">April 9, 2018</td>
-                  <td>
-                    <a class="icon" href="#"><i class="fe fe-trash"></i></a>
-                  </td>
-                </tr>
+              @forelse ($invoices as $key => $invoice)
+                @php if($key > 4) break; @endphp
+                  <tr>
+                    <td><span class="text-muted">{{ (trim($invoice->number) != '') ? $invoice->number : $invoice->id }}</span></td>
+                    <td>{{ $invoice->customer->customer_name }}</td>
+                    <td>{{ $invoice->tax }}</td>
+                    <td ><span class="badge badge-{{ ($invoice->status == \App\Invoice::PENDING) ? 'warning' : ( ($invoice->status == \App\Invoice::PAID) ? 'success' : 'danger') }}">{{ ucfirst($invoice->status) }}</span></td>
+                  </tr>
+              @empty
+                  <tr>
+                    <td>No invoices found.</td>
+                  </tr>
+              @endforelse
               </tbody>
             </table>
           </div>

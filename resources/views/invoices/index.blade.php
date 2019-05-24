@@ -28,7 +28,6 @@
               <tr>
                 <th class="w-1">No.</th>
                 <th>Customer</th>
-                <th>Subtotal</th>
                 <th>Tax</th>
                 <th>Status</th>
                 <th colspan="4">Actions</th>                
@@ -39,9 +38,8 @@
                   <tr>
                     <td><span class="text-muted">{{ (trim($invoice->number) != '') ? $invoice->number : $invoice->id }}</span></td>
                     <td>{{ $invoice->customer->customer_name }}</td>
-                    <td>123</td>
                     <td>{{ $invoice->tax }}</td>
-                    <td>{{ $invoice->status }}</td>
+                    <td ><span class="badge badge-{{ ($invoice->status == \App\Invoice::PENDING) ? 'warning' : ( ($invoice->status == \App\Invoice::PAID) ? 'success' : 'danger') }}">{{ ucfirst($invoice->status) }}</span></td>
                     <td><a class="icon" href="{{ route('invoices.download', $invoice->id) }}"><i class="fe fe-download"></i></a> </td>
                     <td><a class="icon" href="{{ route('invoices.show', $invoice->id) }}"><i class="fe fe-eye"></i></a> </td>
                     <td><a class="icon" href="{{ route('invoices.edit', $invoice->id) }}"><i class="fe fe-edit"></i></a></td>
