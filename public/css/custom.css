@@ -1,0 +1,53 @@
+/* Custom CSS */
+
+/*banner*/
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Poppins", sans-serif;
+    color: #222222;
+    line-height: 1.2em !important;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 36px;
+}
+h4 {
+    font-size: 18px;
+}
+
+.section-second  h4 {
+    margin-bottom: 15px;
+}
+.banner-area {
+   /* background: url(../images/mac.png) center;*/
+    background-size: cover;
+    /*height: 600px;*/
+    background-position: bottom center;
+}
+.banner-content {
+    padding-top: 90px;
+}
+.second-inner i {
+    font-size: 50px;
+    margin-right: 20px;
+    color: #a1a0a2;
+}
+
+#second {
+    padding: 100px 0;
+    background: #fff;
+}
+
+
+
+
+
+@media only screen and (max-width: 767px) {
+  #second {
+    padding: 38px 0;
+    
+}
+}
