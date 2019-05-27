@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\InvoiceRequest;
 use ConsoleTVs\Invoices\Classes\Invoice;
 use App\Invoice as InvoiceModel;
+use Notification;
+use App\Notifications\SendInvoice;
+use Storage;
 
 class InvoiceController extends Controller
 {
@@ -113,6 +116,35 @@ class InvoiceController extends Controller
         return redirect()->back()->with('status', 'Invoice Deleted Successfully!');
     }
 
+    public function email(Request $request, $id)
+    {
+      $user = $request->user();
+      $invoice = $user->invoices()->findOrFail($id);
+      $items = $invoice->items()->get();
+      $customer = $invoice->customer;
+      $invoiceMaker = Invoice::make();
+      foreach ($items as $item) {
+        $invoiceMaker->addItem($item->item_name, $item->item_price, $item->item_qty, $item->item_id);
+      }
+      $invoice = $invoiceMaker->number($invoice->number)
+                  ->tax($invoice->tax)
+                  ->notes($invoice->notes)
+                  ->customer([
+                      'name'      => $customer->customer_name,
+                      'id'        => (trim($customer->customer_id) != '') ? $customer->customer_id : $customer->id,
+                      'phone'     => $customer->customer_phone,
+                      'location'  => $customer->customer_location,
+                      'zip'       => $customer->customer_zip,
+                      'city'      => $customer->customer_city,
+                      'country'   => $customer->customer_country,
+                  ])->save('invoices/invoice-'.$id.'.pdf');
+       $pdf = Storage::get('invoices/invoice-'.$id.'.pdf');      
+       Notification::send($user, new SendInvoice($pdf));
+
+       return redirect()->back()->with('status', 'Invoice Send Successfully!');
+
+    }
+
     public function download(Request $request, $id)
     {
       $invoice = $request->user()->invoices()->findOrFail($id);
@@ -133,6 +165,6 @@ class InvoiceController extends Controller
                       'zip'       => $customer->customer_zip,
                       'city'      => $customer->customer_city,
                       'country'   => $customer->customer_country,
-                  ])->download('invoice');
+                  ])->download('invoice-'.$id);
     }
 }

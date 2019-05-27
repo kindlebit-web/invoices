@@ -133,7 +133,7 @@
                     <td><span class="text-muted">{{ (trim($invoice->number) != '') ? $invoice->number : $invoice->id }}</span></td>
                     <td>{{ $invoice->customer->customer_name }}</td>
                     <td>{{ $invoice->tax }}</td>
-                    <td ><span class="badge badge-{{ ($invoice->status == \App\Invoice::PENDING) ? 'warning' : ( ($invoice->status == \App\Invoice::PAID) ? 'success' : 'danger') }}">{{ ucfirst($invoice->status) }}</span></td>
+                     <td ><span class="status-icon bg-{{ ($invoice->status == \App\Invoice::PENDING) ? 'warning' : ( ($invoice->status == \App\Invoice::PAID) ? 'success' : 'danger') }}"></span>{{ ucfirst($invoice->status) }}</td>
                   </tr>
               @empty
                   <tr>

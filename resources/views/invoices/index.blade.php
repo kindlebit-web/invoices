@@ -30,7 +30,7 @@
                 <th>Customer</th>
                 <th>Tax</th>
                 <th>Status</th>
-                <th colspan="4">Actions</th>                
+                <th colspan="5">Actions</th>                
               </tr>
             </thead>
             <tbody>
@@ -39,8 +39,9 @@
                     <td><span class="text-muted">{{ (trim($invoice->number) != '') ? $invoice->number : $invoice->id }}</span></td>
                     <td>{{ $invoice->customer->customer_name }}</td>
                     <td>{{ $invoice->tax }}</td>
-                    <td ><span class="badge badge-{{ ($invoice->status == \App\Invoice::PENDING) ? 'warning' : ( ($invoice->status == \App\Invoice::PAID) ? 'success' : 'danger') }}">{{ ucfirst($invoice->status) }}</span></td>
+                    <td ><span class="status-icon bg-{{ ($invoice->status == \App\Invoice::PENDING) ? 'warning' : ( ($invoice->status == \App\Invoice::PAID) ? 'success' : 'danger') }}"></span>{{ ucfirst($invoice->status) }}</td>
                     <td><a class="icon" href="{{ route('invoices.download', $invoice->id) }}"><i class="fe fe-download"></i></a> </td>
+                    <td><a class="icon" href="{{ route('invoices.email', $invoice->id) }}"><i class="fe fe-mail"></i></a> </td>
                     <td><a class="icon" href="{{ route('invoices.show', $invoice->id) }}"><i class="fe fe-eye"></i></a> </td>
                     <td><a class="icon" href="{{ route('invoices.edit', $invoice->id) }}"><i class="fe fe-edit"></i></a></td>
                     <td><a class="icon delete-invoice" id="{{ $invoice->id }}" href="{{ route('invoices.destroy', $invoice->id) }}">

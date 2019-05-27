@@ -7,7 +7,8 @@ Route::post('/settings', 'SettingsController@update')->name('settings.update');
 Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-Route::resource('customers', 'CustomerController');
 
+Route::resource('customers', 'CustomerController');
 Route::resource('invoices', 'InvoiceController');
 Route::get('invoices/download/{invoice_id}', 'InvoiceController@download')->name('invoices.download');
+Route::get('invoices/email/{invoice_id}', 'InvoiceController@email')->name('invoices.email');
