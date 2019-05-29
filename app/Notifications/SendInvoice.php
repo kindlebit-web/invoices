@@ -11,15 +11,15 @@ class SendInvoice extends Notification
 {
     use Queueable;
 
-    protected $pdf;
+    protected $invoice;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($pdf)
+    public function __construct($invoice)
     {
-        $this->pdf = $pdf;
+        $this->invoice = $invoice;
     }
 
     /**
@@ -41,12 +41,10 @@ class SendInvoice extends Notification
      */
     public function toMail($notifiable)
     {
-        $pdf = $this->pdf;
+        $invoice = $this->invoice;
         return (new MailMessage)
                     ->subject('Invoice')
-                    ->line('Here is invoice for you.')
-                    ->line('Thank you for using our application!')
-                    ->attachData($pdf,'invoice.pdf');
+                    ->markdown('invoices.email', ['invoice' => $invoice]);
     }
 
     /**

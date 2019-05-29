@@ -3,26 +3,42 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
+        @if (session('status'))
+        <div class="col-sm-12 alert alert-success alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert"></button>
+            <i class="fe fe-check mr-2" aria-hidden="true"></i>{{ session('status') }}
+        </div>
+        @endif
+         @if ($errors->any())
+          <div class="alert alert-danger alert-dismissible">
+               <button type="button" class="close" data-dismiss="alert"></button>
+             @foreach ($errors->all() as $error)
+               <div><i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{$error}}</div>
+             @endforeach
+             </div>
+          @endif
         <div class="card">
+          <form method="POST" action="{{ route('profile.update')}}" class="card">
+            @csrf
           <div class="card-header">
             <h3 class="card-title">Profile</h3>
           </div>
           <div class="card-body">
             <div class="form-group">
               <label class="form-label">Name</label>
-              <input type="text" name="field-name" class="form-control" autocomplete="off" maxlength="10">
+              <input type="text" name="name" class="form-control" value="{{$user->name}}" required>
             </div>
             <div class="form-group">
               <label class="form-label">Email</label>
-              <input type="text" name="field-name" class="form-control" autocomplete="off" maxlength="8">
+              <input type="email" name="email" class="form-control" value="{{$user->email}}" required>
             </div>
             <div class="form-group">
               <label class="form-label">Old Password</label>
-              <input type="text" name="field-name" class="form-control" autocomplete="off" maxlength="19">
+              <input type="password" name="password" class="form-control" name="password" autocomplete="off">
             </div>
             <div class="form-group">
               <label class="form-label">New Password</label>
-              <input type="text" name="field-name" class="form-control" autocomplete="off" maxlength="9">
+              <input id="password-confirm" type="password" class="form-control" name="new_password" >
             </div>
           </div>
           <div class="card-footer text-right">
@@ -30,6 +46,7 @@
               <button type="submit" class="btn btn-primary ml-auto">Save</button>
             </div>
           </div>
+        </form>
         </div>
       </div>
 
@@ -104,7 +121,7 @@
           </div>
           <div class="card-footer text-right">
             <div class="d-flex">
-              <button type="submit" class="btn btn-primary ml-auto">Save</button>
+              <button type="submithg" class="btn btn-primary ml-auto">Save</button>
             </div>
           </div>
         </div>

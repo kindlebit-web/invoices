@@ -137,9 +137,11 @@ class InvoiceController extends Controller
                       'zip'       => $customer->customer_zip,
                       'city'      => $customer->customer_city,
                       'country'   => $customer->customer_country,
-                  ])->save('invoices/invoice-'.$id.'.pdf');
-       $pdf = Storage::get('invoices/invoice-'.$id.'.pdf');      
-       Notification::send($user, new SendInvoice($pdf));
+                  ]);  
+                  
+     /*   print_r($invoice);
+        die(); */                
+        Notification::send($user, new SendInvoice($invoice));
 
        return redirect()->back()->with('status', 'Invoice Send Successfully!');
 

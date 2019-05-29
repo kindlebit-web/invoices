@@ -3,6 +3,7 @@ Route::get('/', 'PagesController@index');
 
 Route::get('/settings', 'SettingsController@index')->name('settings.index');
 Route::post('/settings', 'SettingsController@update')->name('settings.update');
+Route::post('/profile', 'ProfileController@update')->name('profile.update');
 
 Auth::routes();
 
