@@ -138,10 +138,8 @@ class InvoiceController extends Controller
                       'city'      => $customer->customer_city,
                       'country'   => $customer->customer_country,
                   ]);  
-                  
-     /*   print_r($invoice);
-        die(); */                
-        Notification::send($user, new SendInvoice($invoice));
+
+       Notification::send($user, new SendInvoice($invoice));
 
        return redirect()->back()->with('status', 'Invoice Send Successfully!');
 
